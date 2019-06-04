@@ -7,13 +7,13 @@ query_ocp_api() {
     local ocpApi="${1}"
     local resourcePath="${2}"
     # only execute the following lines if this container is running on OpenShift
-    if [ -e /var/run/secrets/kubernetes.io/serviceaccount/token ]; then
+    if [ -e /var/run/secrets/kubernetes.io/serviceaccount/token ] || [ "${K8S_ENV}" = true ] ; then
         local namespace=$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace)
         local token=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
         local response=$(curl -s -w "%{http_code}" --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt \
             -H "Authorization: Bearer $token" \
             -H 'Accept: application/json' \
-            https://${KUBERNETES_SERVICE_HOST:-kubernetes.default.svc}:${KUBERNETES_SERVICE_PORT:-443}/${ocpApi}/v1/namespaces/${namespace}/${resourcePath})
+            ${KUBERNETES_SERVICE_PROTOCOL:-https}://${KUBERNETES_SERVICE_HOST:-kubernetes.default.svc}:${KUBERNETES_SERVICE_PORT:-443}/${ocpApi}/v1/namespaces/${namespace}/${resourcePath})
         echo ${response}
     fi
 }

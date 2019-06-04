@@ -16,7 +16,7 @@ update_config_map() {
     local payload=${1}
     local kieCMName=${2}
     # only execute the following lines if this container is running on OpenShift
-    if [ -e /var/run/secrets/kubernetes.io/serviceaccount/token ]; then
+    if [ -e /var/run/secrets/kubernetes.io/serviceaccount/token ] || [ "${K8S_ENV}" = true ] ; then
         local namespace=$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace)
         local token=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
         local response=$(curl -s --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt \
@@ -24,7 +24,7 @@ update_config_map() {
             -H 'Accept: application/json' \
             -H 'Content-Type: application/strategic-merge-patch+json' \
             -XPATCH \
-            https://${KUBERNETES_SERVICE_HOST:-kubernetes.default.svc}:${KUBERNETES_SERVICE_PORT:-443}/api/v1/namespaces/${namespace}/configmaps/${kieCMName} -d ${payload} )
+            ${KUBERNETES_SERVICE_PROTOCOL:-https}://${KUBERNETES_SERVICE_HOST:-kubernetes.default.svc}:${KUBERNETES_SERVICE_PORT:-443}/api/v1/namespaces/${namespace}/configmaps/${kieCMName} -d ${payload} )
     fi
 }
 
