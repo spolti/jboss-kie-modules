@@ -98,7 +98,7 @@ Feature: Kie Server common features
       | KIE_ADMIN_USER             | customAdm     |
       | KIE_ADMIN_PWD              | custom" Adm!0 |
     Then file /opt/eap/standalone/configuration/application-users.properties should contain customAdm=a4d41e50a4ae17a50c1ceabe21e41a80
-     And file /opt/eap/standalone/configuration/application-roles.properties should contain customAdm=kie-server,rest-all,admin,kiemgmt,Administrators,user
+    And file /opt/eap/standalone/configuration/application-roles.properties should contain customAdm=kie-server,rest-all,admin,kiemgmt,Administrators,user
 
   Scenario: Check if eap users are not being created if SSO is configured
     When container is started with env
@@ -107,9 +107,9 @@ Feature: Kie Server common features
       | KIE_ADMIN_USER             | customAdm     |
       | KIE_ADMIN_PWD              | custom" Adm!0 |
     Then file /opt/eap/standalone/configuration/application-users.properties should not contain customAdm
-     And file /opt/eap/standalone/configuration/application-roles.properties should not contain customAdm
-     And container log should contain External authentication/authorization enabled, skipping the embedded users creation.
-     And container log should contain KIE_ADMIN_USER is set to customAdm, make sure to configure this user with the provided password on the external auth provider with the roles kie-server,rest-all,admin,kiemgmt,Administrators
+    And file /opt/eap/standalone/configuration/application-roles.properties should not contain customAdm
+    And container log should contain External authentication/authorization enabled, skipping the embedded users creation.
+    And container log should contain KIE_ADMIN_USER is set to customAdm, make sure to configure this user with the provided password on the external auth provider with the roles kie-server,rest-all,admin,kiemgmt,Administrators
 
   Scenario: Check if eap users are not being created if LDAP is configured
     When container is started with env
@@ -118,27 +118,27 @@ Feature: Kie Server common features
       | KIE_ADMIN_USER             | customAdm     |
       | KIE_ADMIN_PWD              | custom" Adm!0 |
     Then file /opt/eap/standalone/configuration/application-users.properties should not contain customAdm
-     And file /opt/eap/standalone/configuration/application-roles.properties should not contain customAdm
-     And container log should contain External authentication/authorization enabled, skipping the embedded users creation.
-     And container log should contain KIE_ADMIN_USER is set to customAdm, make sure to configure this user with the provided password on the external auth provider with the roles kie-server,rest-all,admin,kiemgmt,Administrators
+    And file /opt/eap/standalone/configuration/application-roles.properties should not contain customAdm
+    And container log should contain External authentication/authorization enabled, skipping the embedded users creation.
+    And container log should contain KIE_ADMIN_USER is set to customAdm, make sure to configure this user with the provided password on the external auth provider with the roles kie-server,rest-all,admin,kiemgmt,Administrators
 
   Scenario: Check if eap users are not being created if SSO is configured with no users env
     When container is started with env
       | variable                   | value         |
       | SSO_URL                    | http://url    |
     Then file /opt/eap/standalone/configuration/application-users.properties should not contain adminUser
-     And file /opt/eap/standalone/configuration/application-roles.properties should not contain adminUser
-     And container log should contain External authentication/authorization enabled, skipping the embedded users creation.
-     And container log should contain Make sure to configure KIE_ADMIN_USER user to access the application with the roles kie-server,rest-all,admin,kiemgmt,Administrators,user
+    And file /opt/eap/standalone/configuration/application-roles.properties should not contain adminUser
+    And container log should contain External authentication/authorization enabled, skipping the embedded users creation.
+    And container log should contain Make sure to configure KIE_ADMIN_USER user to access the application with the roles kie-server,rest-all,admin,kiemgmt,Administrators,user
 
   Scenario: Check if eap users are not being created if LDAP is configured with no users env
     When container is started with env
       | variable                   | value         |
       | AUTH_LDAP_URL              | ldap://url:389|
     Then file /opt/eap/standalone/configuration/application-users.properties should not contain adminUser
-     And file /opt/eap/standalone/configuration/application-roles.properties should not contain adminUser
-     And container log should contain External authentication/authorization enabled, skipping the embedded users creation.
-     And container log should contain Make sure to configure KIE_ADMIN_USER user to access the application with the roles kie-server,rest-all,admin,kiemgmt,Administrators,user
+    And file /opt/eap/standalone/configuration/application-roles.properties should not contain adminUser
+    And container log should contain External authentication/authorization enabled, skipping the embedded users creation.
+    And container log should contain Make sure to configure KIE_ADMIN_USER user to access the application with the roles kie-server,rest-all,admin,kiemgmt,Administrators,user
 
   Scenario: Check custom users are properly configured
     When container is started with env
@@ -147,13 +147,13 @@ Feature: Kie Server common features
       | KIE_ADMIN_PWD              | custom" Adm!0 |
       | KIE_ADMIN_ROLES            | role1,admin2  |
     Then file /opt/eap/standalone/configuration/application-users.properties should contain customAdm=a4d41e50a4ae17a50c1ceabe21e41a80
-     And file /opt/eap/standalone/configuration/application-roles.properties should contain customAdm=role1,admin2
+    And file /opt/eap/standalone/configuration/application-roles.properties should contain customAdm=role1,admin2
 
   # https://issues.jboss.org/browse/RHPAM-891
   Scenario: Check default users are properly configured
     When container is ready
     Then file /opt/eap/standalone/configuration/application-users.properties should contain adminUser=de3155e1927c6976555925dec24a53ac
-     And file /opt/eap/standalone/configuration/application-roles.properties should contain adminUser=kie-server,rest-all,admin,kiemgmt,Administrators,user
+    And file /opt/eap/standalone/configuration/application-roles.properties should contain adminUser=kie-server,rest-all,admin,kiemgmt,Administrators,user
 
   Scenario: Configure kie server to use LDAP authentication
     When container is started with env
@@ -208,12 +208,12 @@ Feature: Kie Server common features
   # RHPAM-2274: S2I build failure when assembly plugin is used
   Scenario: Deploy a jar and its pom files using assembly script.
     Given s2i build https://github.com/jboss-container-images/jboss-kie-modules.git from jboss-kie-kieserver/tests/bats/resources/assembly-build using master
-     Then file /home/jboss/.m2/repository/org/kie/kieserver/assembly-build-rhpam-2274/1.0.0/assembly-build-rhpam-2274-1.0.0.jar should exist
-      And file /home/jboss/.m2/repository/org/kie/kieserver/assembly-build-rhpam-2274/1.0.0/assembly-build-rhpam-2274-1.0.0.pom should exist
-      And file /home/jboss/.m2/repository/org/kie/kie-internal/7.14.0.Final-redhat-00004/kie-internal-7.14.0.Final-redhat-00004.pom should exist
-      And file /home/jboss/.m2/repository/org/kie/kie-api/7.14.0.Final-redhat-00004/kie-api-7.14.0.Final-redhat-00004.pom should exist
-      And file /home/jboss/.m2/repository/org/kie/soup/kie-soup-maven-support/7.14.0.Final-redhat-00004/kie-soup-maven-support-7.14.0.Final-redhat-00004.pom should exist
-      And file /home/jboss/.m2/repository/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.pom should exist
+    Then file /home/jboss/.m2/repository/org/kie/kieserver/assembly-build-rhpam-2274/1.0.0/assembly-build-rhpam-2274-1.0.0.jar should exist
+    And file /home/jboss/.m2/repository/org/kie/kieserver/assembly-build-rhpam-2274/1.0.0/assembly-build-rhpam-2274-1.0.0.pom should exist
+    And file /home/jboss/.m2/repository/org/kie/kie-internal/7.14.0.Final-redhat-00004/kie-internal-7.14.0.Final-redhat-00004.pom should exist
+    And file /home/jboss/.m2/repository/org/kie/kie-api/7.14.0.Final-redhat-00004/kie-api-7.14.0.Final-redhat-00004.pom should exist
+    And file /home/jboss/.m2/repository/org/kie/soup/kie-soup-maven-support/7.14.0.Final-redhat-00004/kie-soup-maven-support-7.14.0.Final-redhat-00004.pom should exist
+    And file /home/jboss/.m2/repository/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.pom should exist
 
   Scenario: Verify the KIE_SERVER_BYPASS_AUTH_USER configuration
     When container is started with env
@@ -260,8 +260,8 @@ Feature: Kie Server common features
       | KIE_SERVER_CONTAINER_DEPLOYMENT   | hellorules=org.openshift.quickstarts:rhdm-kieserver-hellorules:1.6.0-SNAPSHOT |
       | ARTIFACT_DIR                      | hellorules/target,hellorules-model/target                                     |
     Then run sh -c 'test -d /home/jboss/.m2/repository/org/openshift/quickstarts/rhdm-kieserver-parent/ && echo all good' in container and check its output for all good
-     And run sh -c 'test -f /home/jboss/.m2/repository/org/openshift/quickstarts/rhdm-kieserver-hellorules/1.6.0-SNAPSHOT/rhdm-kieserver-hellorules-1.6.0-SNAPSHOT.jar && echo all good' in container and check its output for all good
-     And run sh -c 'test -f /home/jboss/.m2/repository/org/openshift/quickstarts/rhdm-kieserver-hellorules-model/1.6.0-SNAPSHOT/rhdm-kieserver-hellorules-model-1.6.0-SNAPSHOT.jar && echo all good' in container and check its output for all good
+    And run sh -c 'test -f /home/jboss/.m2/repository/org/openshift/quickstarts/rhdm-kieserver-hellorules/1.6.0-SNAPSHOT/rhdm-kieserver-hellorules-1.6.0-SNAPSHOT.jar && echo all good' in container and check its output for all good
+    And run sh -c 'test -f /home/jboss/.m2/repository/org/openshift/quickstarts/rhdm-kieserver-hellorules-model/1.6.0-SNAPSHOT/rhdm-kieserver-hellorules-model-1.6.0-SNAPSHOT.jar && echo all good' in container and check its output for all good
 
   Scenario: test Kie Server controller access with default values
     When container is started with env
@@ -394,7 +394,7 @@ Feature: Kie Server common features
       | PROMETHEUS_SERVER_EXT_DISABLED | false |
       | AB_PROMETHEUS_ENABLE           | true  |
     Then container log should contain -Dorg.kie.prometheus.server.ext.disabled=false
-     And container log should contain -javaagent:/opt/jboss/container/prometheus/jmx_prometheus_javaagent.jar=9799:/opt/jboss/container/prometheus/etc/jmx-exporter-config.yaml
+    And container log should contain -javaagent:/opt/jboss/container/prometheus/jmx_prometheus_javaagent.jar=9799:/opt/jboss/container/prometheus/etc/jmx-exporter-config.yaml
 
   Scenario: Check that prometheus properties are disabled.
     When container is started with env
@@ -402,14 +402,14 @@ Feature: Kie Server common features
       | PROMETHEUS_SERVER_EXT_DISABLED | true  |
       | AB_PROMETHEUS_ENABLE           | false |
     Then container log should contain -Dorg.kie.prometheus.server.ext.disabled=true
-     And container log should not contain -javaagent:/opt/jboss/container/prometheus/jmx_prometheus_javaagent.jar
+    And container log should not contain -javaagent:/opt/jboss/container/prometheus/jmx_prometheus_javaagent.jar
 
   Scenario: Check bad prometheus env and no AB env.
     When container is started with env
       | variable                       | value  |
       | PROMETHEUS_SERVER_EXT_DISABLED | foobar |
     Then container log should contain Invalid value "foobar" for PROMETHEUS_SERVER_EXT_DISABLED. Must be "true" or "false".
-     And container log should not contain -javaagent:/opt/jboss/container/prometheus/jmx_prometheus_javaagent.jar
+    And container log should not contain -javaagent:/opt/jboss/container/prometheus/jmx_prometheus_javaagent.jar
 
   Scenario: KIECLOUD-122 - Enable JMS for RHDM and RHPAM, remove unneeded files
     When container is ready
@@ -418,20 +418,20 @@ Feature: Kie Server common features
   Scenario: KIECLOUD-122 - Enable JMS for RHDM and RHPAM, check if the custom jms file configuration are present on the image
     When container is ready
     Then file /opt/eap/standalone/deployments/ROOT.war/WEB-INF/ejb-jar.xml should contain org.kie.server.jms.KieServerMDB
-     And file /opt/eap/standalone/deployments/ROOT.war/WEB-INF/ejb-jar.xml should contain org.kie.server.jms.executor.KieExecutorMDB
+    And file /opt/eap/standalone/deployments/ROOT.war/WEB-INF/ejb-jar.xml should contain org.kie.server.jms.executor.KieExecutorMDB
 
   Scenario: KIECLOUD-122 - Enable JMS for RHDM and RHPAM, test default request/response queue values on kie-server-jms.xml
     When container is ready
     Then file /opt/eap/standalone/deployments/ROOT.war/META-INF/kie-server-jms.xml should contain <entry name="queue/KIE.SERVER.REQUEST" />
-     And file /opt/eap/standalone/deployments/ROOT.war/META-INF/kie-server-jms.xml should contain <jms-queue name="KIE.SERVER.REQUEST">
-     And file /opt/eap/standalone/deployments/ROOT.war/META-INF/kie-server-jms.xml should contain <entry name="java:jboss/exported/jms/queue/KIE.SERVER.REQUEST" />
-     And file /opt/eap/standalone/deployments/ROOT.war/META-INF/kie-server-jms.xml should contain <entry name="queue/KIE.SERVER.RESPONSE" />
-     And file /opt/eap/standalone/deployments/ROOT.war/META-INF/kie-server-jms.xml should contain <jms-queue name="KIE.SERVER.RESPONSE">
-     And file /opt/eap/standalone/deployments/ROOT.war/META-INF/kie-server-jms.xml should contain <entry name="java:jboss/exported/jms/queue/KIE.SERVER.RESPONSE" />
-     And file /opt/eap/standalone/deployments/ROOT.war/META-INF/kie-server-jms.xml should contain <entry name="queue/KIE.SERVER.EXECUTOR" />
-     And file /opt/eap/standalone/deployments/ROOT.war/META-INF/kie-server-jms.xml should contain <jms-queue name="KIE.SERVER.EXECUTOR">
-     And file /opt/eap/standalone/deployments/ROOT.war/WEB-INF/ejb-jar.xml should contain <activation-config-property-value>queue/KIE.SERVER.REQUEST</activation-config-property-value>
-     And file /opt/eap/standalone/deployments/ROOT.war/WEB-INF/ejb-jar.xml should contain <activation-config-property-value>queue/KIE.SERVER.EXECUTOR</activation-config-property-value>
+    And file /opt/eap/standalone/deployments/ROOT.war/META-INF/kie-server-jms.xml should contain <jms-queue name="KIE.SERVER.REQUEST">
+    And file /opt/eap/standalone/deployments/ROOT.war/META-INF/kie-server-jms.xml should contain <entry name="java:jboss/exported/jms/queue/KIE.SERVER.REQUEST" />
+    And file /opt/eap/standalone/deployments/ROOT.war/META-INF/kie-server-jms.xml should contain <entry name="queue/KIE.SERVER.RESPONSE" />
+    And file /opt/eap/standalone/deployments/ROOT.war/META-INF/kie-server-jms.xml should contain <jms-queue name="KIE.SERVER.RESPONSE">
+    And file /opt/eap/standalone/deployments/ROOT.war/META-INF/kie-server-jms.xml should contain <entry name="java:jboss/exported/jms/queue/KIE.SERVER.RESPONSE" />
+    And file /opt/eap/standalone/deployments/ROOT.war/META-INF/kie-server-jms.xml should contain <entry name="queue/KIE.SERVER.EXECUTOR" />
+    And file /opt/eap/standalone/deployments/ROOT.war/META-INF/kie-server-jms.xml should contain <jms-queue name="KIE.SERVER.EXECUTOR">
+    And file /opt/eap/standalone/deployments/ROOT.war/WEB-INF/ejb-jar.xml should contain <activation-config-property-value>queue/KIE.SERVER.REQUEST</activation-config-property-value>
+    And file /opt/eap/standalone/deployments/ROOT.war/WEB-INF/ejb-jar.xml should contain <activation-config-property-value>queue/KIE.SERVER.EXECUTOR</activation-config-property-value>
 
   Scenario: KIECLOUD-122 - Enable JMS for RHDM and RHPAM, test custom request/response queue values on kie-server-jms.xml
     When container is started with env
@@ -440,29 +440,29 @@ Feature: Kie Server common features
       | KIE_SERVER_JMS_QUEUE_REQUEST   | queue/MY.KIE.SERVER.REQUEST  |
       | KIE_SERVER_JMS_QUEUE_EXECUTOR  | queue/MY.KIE.SERVER.EXECUTOR |
     Then file /opt/eap/standalone/deployments/ROOT.war/META-INF/kie-server-jms.xml should contain <entry name="queue/MY.KIE.SERVER.REQUEST" />
-     And file /opt/eap/standalone/deployments/ROOT.war/META-INF/kie-server-jms.xml should contain <entry name="java:jboss/exported/jms/queue/MY.KIE.SERVER.REQUEST" />
-     And file /opt/eap/standalone/deployments/ROOT.war/META-INF/kie-server-jms.xml should contain <entry name="queue/MY.KIE.SERVER.RESPONSE" />
-     And file /opt/eap/standalone/deployments/ROOT.war/META-INF/kie-server-jms.xml should contain <entry name="java:jboss/exported/jms/queue/MY.KIE.SERVER.RESPONSE" />
-     And file /opt/eap/standalone/deployments/ROOT.war/META-INF/kie-server-jms.xml should contain <entry name="queue/MY.KIE.SERVER.EXECUTOR" />
-     And file /opt/eap/standalone/deployments/ROOT.war/WEB-INF/ejb-jar.xml should contain <activation-config-property-value>queue/MY.KIE.SERVER.REQUEST</activation-config-property-value>
-     And file /opt/eap/standalone/deployments/ROOT.war/WEB-INF/ejb-jar.xml should contain <activation-config-property-value>queue/MY.KIE.SERVER.EXECUTOR</activation-config-property-value>
+    And file /opt/eap/standalone/deployments/ROOT.war/META-INF/kie-server-jms.xml should contain <entry name="java:jboss/exported/jms/queue/MY.KIE.SERVER.REQUEST" />
+    And file /opt/eap/standalone/deployments/ROOT.war/META-INF/kie-server-jms.xml should contain <entry name="queue/MY.KIE.SERVER.RESPONSE" />
+    And file /opt/eap/standalone/deployments/ROOT.war/META-INF/kie-server-jms.xml should contain <entry name="java:jboss/exported/jms/queue/MY.KIE.SERVER.RESPONSE" />
+    And file /opt/eap/standalone/deployments/ROOT.war/META-INF/kie-server-jms.xml should contain <entry name="queue/MY.KIE.SERVER.EXECUTOR" />
+    And file /opt/eap/standalone/deployments/ROOT.war/WEB-INF/ejb-jar.xml should contain <activation-config-property-value>queue/MY.KIE.SERVER.REQUEST</activation-config-property-value>
+    And file /opt/eap/standalone/deployments/ROOT.war/WEB-INF/ejb-jar.xml should contain <activation-config-property-value>queue/MY.KIE.SERVER.EXECUTOR</activation-config-property-value>
 
   Scenario: KIECLOUD-122 - Enable JMS for RHDM and RHPAM, verify if the JMS is disabled
     When container is started with env
       | variable                | value    |
       | KIE_SERVER_EXECUTOR_JMS | false    |
     Then container log should not contain -Dorg.kie.executor.jms=true
-     And container log should contain -Dorg.kie.executor.jms=false
-     And container log should not contain Executor JMS based support successfully activated on queue ActiveMQQueue[jms.queue.KIE.SERVER.EXECUTOR]
-     And container log should not contain -Dorg.kie.executor.jms.transacted
-     And container log should not contain -Dorg.kie.executor.jms.queue
+    And container log should contain -Dorg.kie.executor.jms=false
+    And container log should not contain Executor JMS based support successfully activated on queue ActiveMQQueue[jms.queue.KIE.SERVER.EXECUTOR]
+    And container log should not contain -Dorg.kie.executor.jms.transacted
+    And container log should not contain -Dorg.kie.executor.jms.queue
 
   Scenario: KIECLOUD-122 - Enable JMS for RHDM and RHPAM, verify META-INF/jms-server-jms.xml is removed if external AMQ integration is enabled
     When container is started with env
       | variable                  | value     |
       | MQ_SERVICE_PREFIX_MAPPING | AMQPREFIX |
     Then container log should contain Configuring external JMS integration, removing /opt/eap/standalone/deployments/ROOT.war/META-INF/kie-server-jms.xml
-     And file /opt/eap/standalone/deployments/ROOT.war/META-INF/kie-server-jms.xml should not exist
+    And file /opt/eap/standalone/deployments/ROOT.war/META-INF/kie-server-jms.xml should not exist
 
   Scenario: RHDM-1096 - Check that optaplanner thread pool queue size property is not set without env.
     When container is started with env
@@ -475,3 +475,28 @@ Feature: Kie Server common features
       | OPTAPLANNER_SERVER_EXT_THREAD_POOL_QUEUE_SIZE | 4     |
     Then container log should contain -Dorg.optaplanner.server.ext.thread.pool.queue.size=4
 
+  Scenario: Verify if the KJar verification is is correctly disabled
+    When container is started with env
+      | variable                            | value                          |
+      | KIE_SERVER_CONTAINER_DEPLOYMENT     | test=org.package:mypackage:1.0 |
+      # PULLS are disabled intentionally here otherwise container will fail before reach the container verification to start because the provided package is not valid.
+      | KIE_SERVER_DISABLE_KC_PULL_DEPS     | true                           |
+      | KIE_SERVER_DISABLE_KC_VERIFICATION  | true                           |
+    Then container log should contain Using standard EnvVar KIE_SERVER_CONTAINER_DEPLOYMENT: test=org.package:mypackage:1.0
+     And container log should contain WARN KIE Jar verification disabled, skipping. Please make sure that the provided KJar was properly tested before deploying it.
+
+  Scenario: Scenario: Verify if the pull dependencies is correctly disabled and KJar verification is correctly triggered
+    When container is started with env
+      | variable                            | value                          |
+      | KIE_SERVER_CONTAINER_DEPLOYMENT     | test=org.package:mypackage:1.0 |
+      | KIE_SERVER_DISABLE_KC_PULL_DEPS     | true                           |
+    Then container log should contain Using standard EnvVar KIE_SERVER_CONTAINER_DEPLOYMENT: test=org.package:mypackage:1.0
+    And container log should contain WARN Pull dependencies is disabled, skipping. Please make sure to provide all dependencies needed by the specified kjar.
+    And container log should contain INFO Attempting to verify kie server containers with 'java org.kie.server.services.impl.KieServerContainerVerifier  org.package:mypackage:1.0'
+
+  Scenario: Verify if the pull dependencies is correctly triggered
+    When container is started with env
+      | variable                            | value                          |
+      | KIE_SERVER_CONTAINER_DEPLOYMENT     | test=org.package:mypackage:1.0 |
+    Then container log should contain Using standard EnvVar KIE_SERVER_CONTAINER_DEPLOYMENT: test=org.package:mypackage:1.0
+    And container log should contain INFO Attempting to pull dependencies for kjar 0 with

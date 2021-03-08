@@ -586,4 +586,3 @@ teardown() {
     echo "Expected: ${expected}"
     [[ "${JBOSS_KIE_ARGS}" == "${expected}" ]]
 }
-
