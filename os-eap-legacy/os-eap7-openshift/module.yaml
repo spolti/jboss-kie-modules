@@ -2,9 +2,11 @@ schema_version: 1
 name: os-eap7-openshift
 version: '1.0-kie'
 description: Legacy os-eap7-openshift script package.
-modules:
-  install:
-  - name: jboss.container.java.jvm.bash
+#modules:
+#  install:
+# this dependency is installed already on base image as dependency of dynamic-resources:
+# https://github.com/jboss-openshift/cct_module/blob/0.39.x/dynamic-resources/module.yaml#L7
+#  - name: jboss.container.java.jvm.bash
 execute:
 - script: prepare.sh
 - script: configure.sh

@@ -51,7 +51,7 @@ chmod -R 755 ${KIE_DIR}
 KIE_HOME_DIR=/opt/kie
 
 # Necessary to permit running with a randomised UID
-# for dir in /deployments $JBOSS_HOME $HOME; do
+
 for dir in $JBOSS_HOME/bin $HOME $KIE_HOME_DIR; do
     chown -R jboss:root $dir
     chmod -R g+rwX $dir
